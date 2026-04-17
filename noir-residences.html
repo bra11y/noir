@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Noir Residences — Premium Short-Let Lagos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+
+/* ── TOKENS ── */
+:root {
+  --black:       #080808;
+  --deep:        #0f0f0f;
+  --surface:     #141414;
+  --surface-2:   #1c1c1c;
+  --surface-3:   #242424;
+  --line:        rgba(255,255,255,0.07);
+  --line-gold:   rgba(185,155,95,0.3);
+  --gold:        #b99b5f;
+  --gold-light:  #d4b97a;
+  --gold-pale:   rgba(185,155,95,0.12);
+  --white:       #f4f0e8;
+  --white-dim:   rgba(244,240,232,0.55);
+  --white-faint: rgba(244,240,232,0.25);
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans:  'Jost', system-ui, sans-serif;
+  --focus: #3898ec;
+}
+
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--sans);
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+img { display: block; width: 100%; height: 100%; object-fit: cover; }
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; font-family: var(--sans); }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+
+/* ── SHARED ── */
+.container { max-width: 1280px; margin-inline: auto; padding-inline: clamp(1.25rem, 5vw, 4rem); }
+.section-label {
+  font-family: var(--sans);
+  font-size: 0.62rem;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.gold-line {
+  width: 40px; height: 1px;
+  background: var(--gold);
+  display: block;
+  margin-bottom: 1.25rem;
+}
+
+/* ── ANIMATIONS ── */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.75s ease, transform 0.75s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+}
+
+/* ══════════════════════════════
+   NAV
+══════════════════════════════ */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1.5rem clamp(1.25rem, 5vw, 4rem);
+  display: flex; align-items: center; justify-content: space-between;
+  transition: background 0.4s ease, padding 0.4s ease;
+}
+.nav.scrolled {
+  background: rgba(8,8,8,0.95);
+  backdrop-filter: blur(12px);
+  padding-top: 1rem; padding-bottom: 1rem;
+  border-bottom: 0.5px solid var(--line);
+}
+.nav__logo {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  color: var(--white);
+}
+.nav__logo span { color: var(--gold); }
+.nav__links {
+  display: flex; gap: 2.5rem;
+  list-style: none;
+}
+.nav__links a {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--white-dim);
+  transition: color 0.2s;
+}
+.nav__links a:hover { color: var(--gold); }
+.nav__cta {
+  padding: 0.6rem 1.6rem;
+  border: 0.5px solid var(--gold);
+  color: var(--gold);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: transparent;
+  transition: background 0.25s, color 0.25s;
+}
+.nav__cta:hover { background: var(--gold); color: var(--black); }
+.nav__hamburger {
+  display: none;
+  flex-direction: column; gap: 5px;
+  background: none; border: none; padding: 4px;
+  aria-label: "Open menu";
+}
+.nav__hamburger span {
+  display: block; width: 22px; height: 1px;
+  background: var(--white);
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+/* ══════════════════════════════
+   HERO
+══════════════════════════════ */
+.hero {
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  overflow: hidden;
+}
+.hero__left {
+  display: flex; flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(6rem, 10vw, 9rem) clamp(1.25rem, 5vw, 4rem) clamp(4rem, 8vw, 6rem);
+  position: relative; z-index: 2;
+}
+.hero__eyebrow {
+  font-size: 0.62rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.3s forwards;
+}
+.hero__headline {
+  font-family: var(--serif);
+  font-size: clamp(3.2rem, 6.5vw, 6rem);
+  font-weight: 300;
+  line-height: 1.0;
+  color: var(--white);
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: fadeUp 0.9s 0.5s forwards;
+}
+.hero__headline em {
+  font-style: italic;
+  color: var(--gold-light);
+}
+.hero__sub {
+  font-size: 0.9rem;
+  color: var(--white-dim);
+  max-width: 360px;
+  line-height: 1.85;
+  margin-bottom: 3rem;
+  opacity: 0;
+  animation: fadeUp 0.9s 0.7s forwards;
+}
+.hero__actions {
+  display: flex; gap: 1rem; align-items: center;
+  opacity: 0;
+  animation: fadeUp 0.9s 0.9s forwards;
+}
+.btn-primary {
+  padding: 0.85rem 2.2rem;
+  background: var(--gold);
+  color: var(--black);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 500;
+  border: none;
+  transition: background 0.25s;
+}
+.btn-primary:hover { background: var(--gold-light); }
+.btn-ghost {
+  padding: 0.85rem 2.2rem;
+  background: transparent;
+  color: var(--white-dim);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border: 0.5px solid var(--line);
+  transition: border-color 0.25s, color 0.25s;
+}
+.btn-ghost:hover { border-color: var(--white-faint); color: var(--white); }
+
+.hero__scroll {
+  position: absolute;
+  bottom: 2.5rem; left: clamp(1.25rem, 5vw, 4rem);
+  display: flex; align-items: center; gap: 1rem;
+  color: var(--white-faint);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: fadeUp 0.9s 1.2s forwards;
+}
+.hero__scroll::before {
+  content: '';
+  display: block; width: 32px; height: 0.5px;
+  background: var(--gold);
+}
+
+.hero__right {
+  position: relative;
+  overflow: hidden;
+}
+.hero__img-wrap {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(to right, var(--black) 0%, transparent 30%),
+    linear-gradient(160deg, #1a1610 0%, #0d0c09 100%);
+}
+.hero__img-pattern {
+  position: absolute; inset: 0;
+  background-image:
+    repeating-linear-gradient(45deg, transparent, transparent 60px, rgba(185,155,95,0.015) 60px, rgba(185,155,95,0.015) 61px);
+}
+.hero__img-placeholder {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 0.75rem;
+}
+.hero__img-placeholder-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  color: rgba(185,155,95,0.25);
+  text-transform: uppercase;
+}
+.hero__img-placeholder-icon {
+  width: 48px; height: 48px;
+  border: 0.5px solid rgba(185,155,95,0.15);
+  display: flex; align-items: center; justify-content: center;
+}
+
+.hero__stat-strip {
+  position: absolute;
+  bottom: 2.5rem; right: 2.5rem;
+  display: flex; flex-direction: column; gap: 1.5rem;
+  z-index: 3;
+  opacity: 0;
+  animation: fadeUp 1s 1s forwards;
+}
+.hero__stat { text-align: right; }
+.hero__stat-num {
+  font-family: var(--serif);
+  font-size: 2.2rem;
+  font-weight: 300;
+  color: var(--gold);
+  line-height: 1;
+}
+.hero__stat-label {
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  color: var(--white-faint);
+  text-transform: uppercase;
+  margin-top: 0.25rem;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ══════════════════════════════
+   TICKER / MARQUEE
+══════════════════════════════ */
+.ticker {
+  border-top: 0.5px solid var(--line);
+  border-bottom: 0.5px solid var(--line);
+  padding: 0.85rem 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.ticker__track {
+  display: inline-flex; gap: 0;
+  animation: ticker 28s linear infinite;
+}
+.ticker__item {
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--white-faint);
+  padding-inline: 2.5rem;
+}
+.ticker__dot {
+  color: var(--gold);
+  padding-inline: 0.5rem;
+}
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ticker__track { animation: none; }
+}
+
+/* ══════════════════════════════
+   PROPERTIES
+══════════════════════════════ */
+.properties {
+  padding: clamp(4rem, 8vw, 7rem) 0;
+  position: relative;
+}
+.properties__header {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: 3.5rem;
+  flex-wrap: wrap; gap: 1.5rem;
+}
+.properties__title {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  font-weight: 300;
+  line-height: 1.1;
+}
+.properties__title em { font-style: italic; color: var(--gold); }
+.properties__link {
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: flex; align-items: center; gap: 0.75rem;
+  white-space: nowrap;
+}
+.properties__link::after {
+  content: '';
+  display: block; width: 28px; height: 0.5px;
+  background: var(--gold);
+  transition: width 0.3s;
+}
+.properties__link:hover::after { width: 48px; }
+
+.properties__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5px;
+}
+.prop-card {
+  background: var(--surface);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+.prop-card:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.prop-card__img {
+  height: 280px;
+  background: var(--surface-2);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.5s ease;
+}
+.prop-card:hover .prop-card__img { transform: scale(1.04); }
+.prop-card__img-inner {
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    135deg,
+    var(--surface-2), var(--surface-2) 20px,
+    var(--surface-3) 20px, var(--surface-3) 40px
+  );
+  display: flex; align-items: center; justify-content: center;
+}
+.prop-card__img-label {
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  color: rgba(185,155,95,0.2);
+  text-transform: uppercase;
+}
+.prop-card__badge {
+  position: absolute; top: 1rem; left: 1rem;
+  background: var(--gold);
+  color: var(--black);
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.75rem;
+  font-weight: 500;
+}
+.prop-card__body { padding: 1.5rem; }
+.prop-card__location {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+.prop-card__name {
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+}
+.prop-card__desc {
+  font-size: 0.8rem;
+  color: var(--white-dim);
+  line-height: 1.7;
+  margin-bottom: 1.25rem;
+}
+.prop-card__meta {
+  display: flex; gap: 1.25rem;
+  padding-top: 1rem;
+  border-top: 0.5px solid var(--line);
+  margin-bottom: 1.25rem;
+}
+.prop-card__meta-item {
+  font-size: 0.68rem;
+  color: var(--white-faint);
+}
+.prop-card__meta-item strong {
+  display: block;
+  color: var(--white);
+  font-weight: 400;
+  margin-bottom: 0.1rem;
+}
+.prop-card__price {
+  display: flex; justify-content: space-between; align-items: center;
+}
+.prop-card__amount {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--gold-light);
+}
+.prop-card__amount span {
+  font-family: var(--sans);
+  font-size: 0.65rem;
+  color: var(--white-faint);
+  font-weight: 300;
+}
+.prop-card__book {
+  padding: 0.55rem 1.25rem;
+  border: 0.5px solid var(--gold);
+  color: var(--gold);
+  background: transparent;
+  font-size: 0.62rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: background 0.2s, color 0.2s;
+}
+.prop-card__book:hover { background: var(--gold); color: var(--black); }
+
+/* ══════════════════════════════
+   ABOUT
+══════════════════════════════ */
+.about {
+  padding: clamp(4rem, 8vw, 7rem) 0;
+  border-top: 0.5px solid var(--line);
+}
+.about__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(3rem, 6vw, 6rem);
+  align-items: center;
+}
+.about__visual {
+  position: relative;
+  height: 520px;
+}
+.about__img-main {
+  position: absolute;
+  inset: 0 0 3rem 0;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+.about__img-main-inner {
+  width: 100%; height: 100%;
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--surface-2), var(--surface-2) 25px,
+    var(--surface-3) 25px, var(--surface-3) 50px
+  );
+  display: flex; align-items: center; justify-content: center;
+}
+.about__img-accent {
+  position: absolute;
+  right: -1.5rem; bottom: 0;
+  width: 55%;
+  height: 200px;
+  background: var(--surface-3);
+  border: 0.5px solid var(--line-gold);
+  overflow: hidden;
+}
+.about__img-accent-inner {
+  width: 100%; height: 100%;
+  background: repeating-linear-gradient(
+    45deg,
+    var(--surface-3), var(--surface-3) 15px,
+    #1e1c18 15px, #1e1c18 30px
+  );
+  display: flex; align-items: center; justify-content: center;
+}
+.about__img-label {
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  color: rgba(185,155,95,0.2);
+  text-transform: uppercase;
+}
+.about__number {
+  position: absolute;
+  top: 1.5rem; right: 1.5rem;
+  font-family: var(--serif);
+  font-size: 6rem;
+  font-weight: 300;
+  color: rgba(185,155,95,0.06);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.about__content { padding-block: 2rem; }
+.about__title {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 300;
+  line-height: 1.15;
+  margin-bottom: 1.75rem;
+}
+.about__title em { font-style: italic; color: var(--gold); }
+.about__body {
+  font-size: 0.88rem;
+  color: var(--white-dim);
+  line-height: 1.9;
+  margin-bottom: 1.5rem;
+}
+.about__pillars {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 2.5rem; margin-bottom: 2.5rem;
+}
+.about__pillar {
+  padding: 1.25rem;
+  border: 0.5px solid var(--line);
+  border-top: 1px solid var(--gold);
+}
+.about__pillar-title {
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+.about__pillar-body {
+  font-size: 0.78rem;
+  color: var(--white-dim);
+  line-height: 1.7;
+}
+
+/* ══════════════════════════════
+   TESTIMONIALS
+══════════════════════════════ */
+.testimonials {
+  padding: clamp(4rem, 8vw, 7rem) 0;
+  border-top: 0.5px solid var(--line);
+  background: var(--surface);
+}
+.testimonials__header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+.testimonials__title {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 300;
+  line-height: 1.15;
+}
+.testimonials__title em { font-style: italic; color: var(--gold); }
+.testimonials__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5px;
+}
+.testi-card {
+  background: var(--black);
+  padding: 2.5rem 2rem;
+  border-top: 1px solid var(--gold);
+  position: relative;
+}
+.testi-card__quote-mark {
+  font-family: var(--serif);
+  font-size: 4rem;
+  color: var(--gold);
+  line-height: 0.8;
+  margin-bottom: 1.25rem;
+  opacity: 0.5;
+}
+.testi-card__body {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--white);
+  line-height: 1.7;
+  margin-bottom: 1.75rem;
+}
+.testi-card__footer {
+  display: flex; align-items: center; gap: 1rem;
+  border-top: 0.5px solid var(--line);
+  padding-top: 1.25rem;
+}
+.testi-card__avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--surface-3);
+  border: 0.5px solid var(--line-gold);
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif);
+  font-size: 0.9rem;
+  color: var(--gold);
+}
+.testi-card__name {
+  font-size: 0.78rem;
+  color: var(--white);
+  font-weight: 400;
+}
+.testi-card__meta {
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--white-faint);
+  margin-top: 0.15rem;
+}
+.testi-card__stars {
+  margin-left: auto;
+  display: flex; gap: 2px;
+}
+.testi-card__star {
+  width: 8px; height: 8px;
+  background: var(--gold);
+  clip-path: polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+}
+
+/* ══════════════════════════════
+   CONTACT
+══════════════════════════════ */
+.contact {
+  padding: clamp(4rem, 8vw, 7rem) 0;
+  border-top: 0.5px solid var(--line);
+}
+.contact__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(3rem, 6vw, 6rem);
+}
+.contact__left { padding-block: 1rem; }
+.contact__title {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  font-weight: 300;
+  line-height: 1.1;
+  margin-bottom: 1.25rem;
+}
+.contact__title em { font-style: italic; color: var(--gold); }
+.contact__body {
+  font-size: 0.88rem;
+  color: var(--white-dim);
+  line-height: 1.9;
+  margin-bottom: 2.5rem;
+  max-width: 380px;
+}
+.contact__details { display: flex; flex-direction: column; gap: 1.25rem; }
+.contact__detail-item {
+  display: flex; gap: 1rem;
+  align-items: flex-start;
+}
+.contact__detail-icon {
+  width: 36px; height: 36px;
+  border: 0.5px solid var(--line-gold);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.contact__detail-icon svg {
+  width: 14px; height: 14px;
+  stroke: var(--gold);
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.contact__detail-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.25rem;
+}
+.contact__detail-val {
+  font-size: 0.85rem;
+  color: var(--white-dim);
+}
+
+.contact__form { padding: 2.5rem; background: var(--surface); border-top: 1px solid var(--gold); }
+.form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form__group { margin-bottom: 1.25rem; }
+.form__group--full { grid-column: 1 / -1; }
+.form__label {
+  display: block;
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--white-faint);
+  margin-bottom: 0.5rem;
+}
+.form__input,
+.form__select,
+.form__textarea {
+  width: 100%;
+  background: var(--black);
+  border: 0.5px solid var(--line);
+  color: var(--white);
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  font-weight: 300;
+  padding: 0.75rem 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+  appearance: none;
+}
+.form__input:focus,
+.form__select:focus,
+.form__textarea:focus {
+  border-color: var(--gold);
+}
+.form__input::placeholder,
+.form__textarea::placeholder { color: rgba(244,240,232,0.2); }
+.form__textarea { resize: vertical; min-height: 110px; }
+.form__select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath stroke='%23b99b5f' stroke-width='1.2' d='M1 1l5 5 5-5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; }
+.form__select option { background: var(--surface); }
+.form__submit {
+  width: 100%;
+  padding: 1rem;
+  background: var(--gold);
+  color: var(--black);
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 500;
+  border: none;
+  transition: background 0.25s;
+}
+.form__submit:hover { background: var(--gold-light); }
+
+/* ══════════════════════════════
+   FOOTER
+══════════════════════════════ */
+.footer {
+  border-top: 0.5px solid var(--line);
+  padding: 2.5rem clamp(1.25rem, 5vw, 4rem);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.footer__logo {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  color: var(--white-dim);
+}
+.footer__logo span { color: var(--gold); }
+.footer__copy {
+  font-size: 0.65rem;
+  color: var(--white-faint);
+  letter-spacing: 0.1em;
+}
+.footer__links {
+  display: flex; gap: 1.75rem;
+  list-style: none;
+}
+.footer__links a {
+  font-size: 0.62rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--white-faint);
+  transition: color 0.2s;
+}
+.footer__links a:hover { color: var(--gold); }
+
+/* ══════════════════════════════
+   RESPONSIVE
+══════════════════════════════ */
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero__right { display: none; }
+  .hero__stat-strip { display: none; }
+  .properties__grid { grid-template-columns: 1fr; }
+  .about__inner { grid-template-columns: 1fr; }
+  .about__visual { height: 300px; }
+  .about__img-accent { display: none; }
+  .testimonials__grid { grid-template-columns: 1fr; }
+  .contact__inner { grid-template-columns: 1fr; }
+  .nav__links { display: none; }
+  .nav__cta { display: none; }
+  .nav__hamburger { display: flex; }
+  .footer { flex-direction: column; text-align: center; }
+}
+@media (max-width: 600px) {
+  .about__pillars { grid-template-columns: 1fr; }
+  .form__row { grid-template-columns: 1fr; }
+  .hero__actions { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- SKIP NAV -->
+<a href="#main-content" class="sr-only" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to main content</a>
+
+<!-- ══ NAV ══ -->
+<header role="banner">
+  <nav class="nav" id="main-nav" aria-label="Main navigation">
+    <a href="/" class="nav__logo" aria-label="Noir Residences - home">NOIR<span>.</span></a>
+    <ul class="nav__links" role="list">
+      <li><a href="#properties">Properties</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#testimonials">Reviews</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="nav__cta" aria-label="Book a property now">Book Now</button>
+    <button class="nav__hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+</header>
+
+<!-- ══ HERO ══ -->
+<main id="main-content">
+<section class="hero" aria-labelledby="hero-headline">
+  <div class="hero__left">
+    <p class="hero__eyebrow">Lagos — Abuja — Port Harcourt</p>
+    <h1 class="hero__headline" id="hero-headline">
+      Spaces that<br>whisper <em>luxury.</em><br>Stays you<br>remember.
+    </h1>
+    <p class="hero__sub">
+      Noir Residences curates short-let properties for guests who expect more than a room - they expect an experience.
+    </p>
+    <div class="hero__actions">
+      <a href="#properties" class="btn-primary" role="button">Explore Properties</a>
+      <a href="#contact" class="btn-ghost" role="button">Book a Stay</a>
+    </div>
+    <p class="hero__scroll" aria-hidden="true">Scroll to explore</p>
+  </div>
+  <div class="hero__right" aria-hidden="true">
+    <div class="hero__img-wrap">
+      <div class="hero__img-pattern"></div>
+      <div class="hero__img-placeholder">
+        <div class="hero__img-placeholder-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(185,155,95,0.3)" stroke-width="1" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/>
+          </svg>
+        </div>
+        <span class="hero__img-placeholder-label">Hero Photography</span>
+      </div>
+    </div>
+    <div class="hero__stat-strip">
+      <div class="hero__stat"><div class="hero__stat-num">24+</div><div class="hero__stat-label">Properties</div></div>
+      <div class="hero__stat"><div class="hero__stat-num">4.97</div><div class="hero__stat-label">Avg Rating</div></div>
+      <div class="hero__stat"><div class="hero__stat-num">3</div><div class="hero__stat-label">Cities</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TICKER ══ -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track">
+    <span class="ticker__item">Short-let Lagos</span><span class="ticker__dot">◆</span>
+    <span class="ticker__item">Eko Atlantic</span><span class="ticker__dot">◆</span>
+    <span class="ticker__item">Ikoyi Collection</span><span class="ticker__dot">◆</span>
+    <span class="ticker__item">Maitama Abuja</span><span class="ticker__dot">◆</span>
+    <span class="ticker__item">Port Harcourt</span><span class="ticker__dot">◆</span>
+    <span class="ticker__item">Luxury Stays</span><span class="ticker__dot">◆</span>
+    <span class="ticker__item">Short-let Lagos</span><span class="ticker__dot">◆</span>
+    <span class="ticker__item">Eko Atlantic</span><span class="ticker__dot">◆</span>
+    <span class="ticker__item">Ikoyi Collection</span><span class="ticker__dot">◆</span>
+    <span class="ticker__item">Maitama Abuja</span><span class="ticker__dot">◆</span>
+    <span class="ticker__item">Port Harcourt</span><span class="ticker__dot">◆</span>
+    <span class="ticker__item">Luxury Stays</span><span class="ticker__dot">◆</span>
+  </div>
+</div>
+
+<!-- ══ PROPERTIES ══ -->
+<section class="properties" id="properties" aria-labelledby="properties-title">
+  <div class="container">
+    <div class="properties__header">
+      <div>
+        <p class="section-label reveal">Featured Residences</p>
+        <h2 class="properties__title reveal reveal-delay-1" id="properties-title">
+          Every property,<br>a <em>statement.</em>
+        </h2>
+      </div>
+      <a href="#contact" class="properties__link reveal reveal-delay-2">View All Properties</a>
+    </div>
+
+    <div class="properties__grid" role="list">
+
+      <article class="prop-card reveal" role="listitem" tabindex="0" aria-label="The Onyx Suite, Eko Atlantic">
+        <div class="prop-card__img">
+          <div class="prop-card__img-inner">
+            <span class="prop-card__img-label">Property Photo</span>
+          </div>
+          <span class="prop-card__badge">Featured</span>
+        </div>
+        <div class="prop-card__body">
+          <p class="prop-card__location">Eko Atlantic, Lagos</p>
+          <h3 class="prop-card__name">The Onyx Suite</h3>
+          <p class="prop-card__desc">A full-floor penthouse with uninterrupted Atlantic views, private terrace, and concierge-ready interiors.</p>
+          <div class="prop-card__meta" aria-label="Property details">
+            <div class="prop-card__meta-item"><strong>3</strong>Bedrooms</div>
+            <div class="prop-card__meta-item"><strong>2</strong>Bathrooms</div>
+            <div class="prop-card__meta-item"><strong>4.9</strong>Rating</div>
+          </div>
+          <div class="prop-card__price">
+            <div class="prop-card__amount">₦180,000 <span>/ night</span></div>
+            <button class="prop-card__book" aria-label="Book The Onyx Suite">Book</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="prop-card reveal reveal-delay-1" role="listitem" tabindex="0" aria-label="Ikoyi Garden Loft, Old Ikoyi">
+        <div class="prop-card__img">
+          <div class="prop-card__img-inner">
+            <span class="prop-card__img-label">Property Photo</span>
+          </div>
+        </div>
+        <div class="prop-card__body">
+          <p class="prop-card__location">Old Ikoyi, Lagos</p>
+          <h3 class="prop-card__name">Ikoyi Garden Loft</h3>
+          <p class="prop-card__desc">Mid-century inspired interiors wrapped in lush greenery. Private garden access, chef's kitchen, and rainfall shower.</p>
+          <div class="prop-card__meta" aria-label="Property details">
+            <div class="prop-card__meta-item"><strong>2</strong>Bedrooms</div>
+            <div class="prop-card__meta-item"><strong>2</strong>Bathrooms</div>
+            <div class="prop-card__meta-item"><strong>4.8</strong>Rating</div>
+          </div>
+          <div class="prop-card__price">
+            <div class="prop-card__amount">₦95,000 <span>/ night</span></div>
+            <button class="prop-card__book" aria-label="Book Ikoyi Garden Loft">Book</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="prop-card reveal reveal-delay-2" role="listitem" tabindex="0" aria-label="The Maitama Residence, Abuja">
+        <div class="prop-card__img">
+          <div class="prop-card__img-inner">
+            <span class="prop-card__img-label">Property Photo</span>
+          </div>
+          <span class="prop-card__badge">New</span>
+        </div>
+        <div class="prop-card__body">
+          <p class="prop-card__location">Maitama, Abuja</p>
+          <h3 class="prop-card__name">The Maitama Residence</h3>
+          <p class="prop-card__desc">Diplomatic quarter calm meets modern design. Floor-to-ceiling windows, 24hr security, minutes from the CBD.</p>
+          <div class="prop-card__meta" aria-label="Property details">
+            <div class="prop-card__meta-item"><strong>3</strong>Bedrooms</div>
+            <div class="prop-card__meta-item"><strong>3</strong>Bathrooms</div>
+            <div class="prop-card__meta-item"><strong>5.0</strong>Rating</div>
+          </div>
+          <div class="prop-card__price">
+            <div class="prop-card__amount">₦120,000 <span>/ night</span></div>
+            <button class="prop-card__book" aria-label="Book The Maitama Residence">Book</button>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ ABOUT ══ -->
+<section class="about" id="about" aria-labelledby="about-title">
+  <div class="container">
+    <div class="about__inner">
+      <div class="about__visual reveal" aria-hidden="true">
+        <div class="about__img-main">
+          <div class="about__img-main-inner">
+            <span class="about__img-label">Interior Photography</span>
+          </div>
+        </div>
+        <div class="about__img-accent">
+          <div class="about__img-accent-inner">
+            <span class="about__img-label">Detail Shot</span>
+          </div>
+        </div>
+        <div class="about__number" aria-hidden="true">07</div>
+      </div>
+      <div class="about__content">
+        <p class="section-label reveal">Our Story</p>
+        <span class="gold-line reveal reveal-delay-1" aria-hidden="true"></span>
+        <h2 class="about__title reveal reveal-delay-1" id="about-title">
+          We don't rent<br>spaces. We <em>craft</em><br>experiences.
+        </h2>
+        <p class="about__body reveal reveal-delay-2">
+          Noir Residences was born from a single belief - that a short stay should feel like the finest version of home. We hand-select every property, style every room, and manage every detail so your guest experience is flawless from first message to final checkout.
+        </p>
+        <p class="about__body reveal reveal-delay-3">
+          Across Lagos, Abuja, and Port Harcourt, we serve executives, expatriates, and discerning travellers who will not settle for ordinary.
+        </p>
+        <div class="about__pillars reveal reveal-delay-3" role="list">
+          <div class="about__pillar" role="listitem">
+            <p class="about__pillar-title">Hand-Curated</p>
+            <p class="about__pillar-body">Every listing passes our 40-point design and quality check before going live.</p>
+          </div>
+          <div class="about__pillar" role="listitem">
+            <p class="about__pillar-title">Always Available</p>
+            <p class="about__pillar-body">24/7 guest support. A real person answers - every time.</p>
+          </div>
+          <div class="about__pillar" role="listitem">
+            <p class="about__pillar-title">Zero Compromise</p>
+            <p class="about__pillar-body">From linen thread count to WiFi speed - the details are never an afterthought.</p>
+          </div>
+          <div class="about__pillar" role="listitem">
+            <p class="about__pillar-title">Flexible Stays</p>
+            <p class="about__pillar-body">Weekend escapes to 3-month executive relocations. We adapt to you.</p>
+          </div>
+        </div>
+        <a href="#contact" class="btn-primary reveal reveal-delay-4" role="button">Get in Touch</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TESTIMONIALS ══ -->
+<section class="testimonials" id="testimonials" aria-labelledby="testimonials-title">
+  <div class="container">
+    <div class="testimonials__header">
+      <p class="section-label reveal">Guest Reviews</p>
+      <h2 class="testimonials__title reveal reveal-delay-1" id="testimonials-title">
+        Words from those<br>who <em>stayed.</em>
+      </h2>
+    </div>
+    <div class="testimonials__grid" role="list">
+
+      <article class="testi-card reveal" role="listitem">
+        <div class="testi-card__quote-mark" aria-hidden="true">"</div>
+        <blockquote class="testi-card__body">
+          "The Onyx Suite redefined what I thought a short-let could be. Every detail felt intentional. I extended my stay twice."
+        </blockquote>
+        <footer class="testi-card__footer">
+          <div class="testi-card__avatar" aria-hidden="true">AO</div>
+          <div>
+            <p class="testi-card__name">Adaeze Okafor</p>
+            <p class="testi-card__meta">VP Operations, Dangote Group</p>
+          </div>
+          <div class="testi-card__stars" aria-label="5 stars">
+            <div class="testi-card__star"></div><div class="testi-card__star"></div>
+            <div class="testi-card__star"></div><div class="testi-card__star"></div>
+            <div class="testi-card__star"></div>
+          </div>
+        </footer>
+      </article>
+
+      <article class="testi-card reveal reveal-delay-1" role="listitem">
+        <div class="testi-card__quote-mark" aria-hidden="true">"</div>
+        <blockquote class="testi-card__body">
+          "As someone who travels to Lagos monthly, Noir has become my only address in the city. The consistency is unmatched."
+        </blockquote>
+        <footer class="testi-card__footer">
+          <div class="testi-card__avatar" aria-hidden="true">JM</div>
+          <div>
+            <p class="testi-card__name">James Mensah</p>
+            <p class="testi-card__meta">Director, Standard Chartered Ghana</p>
+          </div>
+          <div class="testi-card__stars" aria-label="5 stars">
+            <div class="testi-card__star"></div><div class="testi-card__star"></div>
+            <div class="testi-card__star"></div><div class="testi-card__star"></div>
+            <div class="testi-card__star"></div>
+          </div>
+        </footer>
+      </article>
+
+      <article class="testi-card reveal reveal-delay-2" role="listitem">
+        <div class="testi-card__quote-mark" aria-hidden="true">"</div>
+        <blockquote class="testi-card__body">
+          "I booked for 5 days. I stayed for 3 weeks. The Maitama Residence is not an apartment - it's a standard."
+        </blockquote>
+        <footer class="testi-card__footer">
+          <div class="testi-card__avatar" aria-hidden="true">FN</div>
+          <div>
+            <p class="testi-card__name">Fatima Nwosu</p>
+            <p class="testi-card__meta">Senior Counsel, NNPC</p>
+          </div>
+          <div class="testi-card__stars" aria-label="5 stars">
+            <div class="testi-card__star"></div><div class="testi-card__star"></div>
+            <div class="testi-card__star"></div><div class="testi-card__star"></div>
+            <div class="testi-card__star"></div>
+          </div>
+        </footer>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section class="contact" id="contact" aria-labelledby="contact-title">
+  <div class="container">
+    <div class="contact__inner">
+      <div class="contact__left">
+        <p class="section-label reveal">Book a Stay</p>
+        <span class="gold-line reveal reveal-delay-1" aria-hidden="true"></span>
+        <h2 class="contact__title reveal reveal-delay-1" id="contact-title">
+          Your next<br><em>residence</em><br>awaits.
+        </h2>
+        <p class="contact__body reveal reveal-delay-2">
+          Tell us your dates, your city, your needs. We'll match you to the perfect space and confirm within 2 hours.
+        </p>
+        <div class="contact__details reveal reveal-delay-3">
+          <div class="contact__detail-item">
+            <div class="contact__detail-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.72 11a19.79 19.79 0 01-3.07-8.67A2 2 0 013.63 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
+            </div>
+            <div>
+              <p class="contact__detail-label">Phone / WhatsApp</p>
+              <p class="contact__detail-val">+234 800 000 0000</p>
+            </div>
+          </div>
+          <div class="contact__detail-item">
+            <div class="contact__detail-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div>
+              <p class="contact__detail-label">Email</p>
+              <p class="contact__detail-val">hello@noirresidences.com</p>
+            </div>
+          </div>
+          <div class="contact__detail-item">
+            <div class="contact__detail-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <p class="contact__detail-label">Cities</p>
+              <p class="contact__detail-val">Lagos · Abuja · Port Harcourt</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact__form reveal reveal-delay-2">
+        <form novalidate aria-label="Booking enquiry form">
+          <div class="form__row">
+            <div class="form__group">
+              <label class="form__label" for="name">Full Name</label>
+              <input class="form__input" type="text" id="name" name="name" autocomplete="name" placeholder="Your name" required aria-required="true" />
+            </div>
+            <div class="form__group">
+              <label class="form__label" for="email">Email Address</label>
+              <input class="form__input" type="email" id="email" name="email" autocomplete="email" placeholder="you@example.com" required aria-required="true" />
+            </div>
+          </div>
+          <div class="form__row">
+            <div class="form__group">
+              <label class="form__label" for="checkin">Check In</label>
+              <input class="form__input" type="date" id="checkin" name="checkin" required aria-required="true" />
+            </div>
+            <div class="form__group">
+              <label class="form__label" for="checkout">Check Out</label>
+              <input class="form__input" type="date" id="checkout" name="checkout" required aria-required="true" />
+            </div>
+          </div>
+          <div class="form__group">
+            <label class="form__label" for="city">Preferred City</label>
+            <select class="form__select" id="city" name="city" required aria-required="true">
+              <option value="" disabled selected>Select a city</option>
+              <option value="lagos">Lagos</option>
+              <option value="abuja">Abuja</option>
+              <option value="portharcourt">Port Harcourt</option>
+            </select>
+          </div>
+          <div class="form__group form__group--full">
+            <label class="form__label" for="message">Special Requests</label>
+            <textarea class="form__textarea" id="message" name="message" placeholder="Tell us anything that matters to you..." aria-label="Special requests or additional information"></textarea>
+          </div>
+          <button type="submit" class="form__submit">Send Enquiry</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ══ FOOTER ══ -->
+<footer class="footer" role="contentinfo">
+  <div class="footer__logo">NOIR<span>.</span></div>
+  <ul class="footer__links" role="list">
+    <li><a href="#properties">Properties</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <p class="footer__copy">© 2026 Noir Residences. All rights reserved.</p>
+</footer>
+
+<script>
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  document.getElementById('hamburger').addEventListener('click', function() {
+    const expanded = this.getAttribute('aria-expanded') === 'true';
+    this.setAttribute('aria-expanded', !expanded);
+  });
+
+  document.querySelector('form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = this.querySelector('.form__submit');
+    btn.textContent = 'Enquiry Sent ✓';
+    btn.style.background = '#2a6e4a';
+    btn.disabled = true;
+  });
+</script>
+</body>
+</html>
